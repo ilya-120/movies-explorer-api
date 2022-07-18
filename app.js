@@ -8,13 +8,15 @@ const errorHandler = require('./middlewares/errorHandler');
 const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 // const cors = require('./middlewares/cors');
+const { limiter } = require('./utils/rateLimiter');
 
 const { PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect('mongodb://localhost:27017/moviesdb', {
 });
 
+app.use(limiter);
 // helmet для защиты приложение от некоторых широко известных веб-уязвимостей
 app.use(helmet());
 // логгер запросов
