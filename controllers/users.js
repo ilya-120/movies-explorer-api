@@ -5,7 +5,7 @@ const CreateError = require('../errors/CreateError');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET, JWT_SECRET_DEV } = require('../utils/constants');
 
 // возвращает информацию о текущем user
 module.exports.getCurrentUser = (req, res, next) => {
@@ -55,7 +55,7 @@ module.exports.login = (req, res, next) => {
       // создадим токен
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        NODE_ENV === 'production' ? JWT_SECRET : JWT_SECRET_DEV,
         {
           expiresIn: '7d',
         },

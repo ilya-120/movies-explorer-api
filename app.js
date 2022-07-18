@@ -10,10 +10,15 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 // const cors = require('./middlewares/cors');
 const { limiter } = require('./utils/rateLimiter');
 
-const { PORT = 3000 } = process.env;
+const {
+  PORT,
+  NODE_ENV,
+  MONGO_URL,
+  MONGO_URL_DEV
+} = require('./utils/constants');
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/moviesdb', {
+mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : MONGO_URL_DEV, {
 });
 
 app.use(limiter);
