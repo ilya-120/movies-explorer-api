@@ -9,13 +9,10 @@ const routes = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 // const cors = require('./middlewares/cors');
 const { limiter } = require('./utils/rateLimiter');
-
 const {
-  PORT,
-  NODE_ENV,
-  MONGO_URL,
-  MONGO_URL_DEV
+  PORT, NODE_ENV, MONGO_URL, MONGO_URL_DEV,
 } = require('./utils/constants');
+
 const app = express();
 
 mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : MONGO_URL_DEV, {
