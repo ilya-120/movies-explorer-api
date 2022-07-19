@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Optional REPL history
+.DS_Store
+.idea
+.vscode
+.env
