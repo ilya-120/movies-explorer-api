@@ -18,11 +18,12 @@ const app = express();
 mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : MONGO_URL_DEV, {
 });
 
+// логгер запросов
+app.use(requestLogger);
 app.use(limiter);
 // helmet для защиты приложение от некоторых широко известных веб-уязвимостей
 app.use(helmet());
-// логгер запросов
-app.use(requestLogger);
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cors);
