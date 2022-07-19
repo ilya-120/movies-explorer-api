@@ -1,5 +1,5 @@
 class CreateError extends Error {
-  constructor(message = 'Ошибка  создания') {
+  constructor(message = 'Ошибка  данных') {
     super(message);
     this.statusCode = 409;
   }

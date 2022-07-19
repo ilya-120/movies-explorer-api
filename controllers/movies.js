@@ -5,7 +5,8 @@ const NotFoundError = require('../errors/NotFoundError');
 
 // Получение Movies
 module.exports.getMovies = (req, res, next) => {
-  Movie.find({})
+  const owner = req.user._id;
+  Movie.find({ owner })
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -56,11 +57,11 @@ module.exports.deleteMovie = (req, res, next) => {
       if (!movie) {
         throw new NotFoundError('Movie отсутствует.');
       }
-      if (Movie.owner.valueOf() !== _id) {
+      if (String(movie.owner).valueOf() !== _id) {
         throw new ForbiddenAccessError('Нельзя удалять чужой Movie!');
       }
-      Movie.findByIdAndRemove(movieId)
-        .then((deleteMovie) => res.send(deleteMovie))
+      movie.remove()
+        .then(() => res.send({ message: movie }))
         .catch(next);
     })
     .catch(next);

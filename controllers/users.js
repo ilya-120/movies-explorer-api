@@ -77,6 +77,9 @@ module.exports.setUser = (req, res, next) => {
   )
     .then((user) => res.send(user))
     .catch((err) => {
+      if (err.code === 11000) {
+        return next(new CreateError('Неверный email.'));
+      }
       if (err.name === 'ValidationError') {
         return next(new BadRequestError('Неверный тип данных.'));
       }

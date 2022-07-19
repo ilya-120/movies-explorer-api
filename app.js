@@ -35,8 +35,6 @@ app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
   console.log(`сервер работает на порту ${PORT}`);
-  // eslint-disable-next-line no-console
   console.log(process.env.NODE_ENV);
 });
