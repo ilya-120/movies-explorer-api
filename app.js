@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
@@ -14,6 +15,7 @@ const {
 } = require('./utils/constants');
 
 const app = express();
+app.use(fileUpload({ createParentPath: true }));
 
 mongoose.connect(NODE_ENV === 'production' ? MONGO_URL : MONGO_URL_DEV, {
 });
@@ -27,6 +29,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors);
+app.use('/static', express.static('files'));
 app.use(routes);
 
 // логгер ошибок

@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const isEmail = require('validator/lib/isEmail');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
+const root = 'https://api.ilya120.nomoreparties.sbs/static/avatars/';
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -23,6 +25,17 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 30,
+  },
+  admin: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  avatar: {
+    type: String,
+    required: false,
+    default: 'icons-ava.png',
+    set: (v) => `${root}${v}`,
   },
 });
 
