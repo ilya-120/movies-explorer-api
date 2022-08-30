@@ -89,10 +89,11 @@ module.exports.setEditUser = (req, res, next) => {
   }).catch(next);
 };
 
+// Загрузка файла на сервер
 module.exports.setEditUserAvatar = (req, res, next) => {
   const image = req.files.file;
   const avatarId = req.body.userId;
-  const arrayOfAllowedFiles = ['png', 'PNG', 'jpeg', 'jpg', 'gif'];
+  const arrayOfAllowedFiles = ['png', 'PNG', 'jpeg', 'JPEG', 'jpg', 'JPG', 'gif', 'GIF'];
   const arrayOfAllowedFileTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
   const allowedFileSize = 2;
   const fileExtension = String(image.name).replace(/.*\./, '');
@@ -111,7 +112,7 @@ module.exports.setEditUserAvatar = (req, res, next) => {
       });
     } else {
       const avatar = req.files.file;
-      avatar.mv(`./files/avatars/${avatar.name}`);
+      avatar.mv(`./files/avatars/${avatarId + avatar.name}`);
       res.send({
         status: true,
         message: 'File is uploaded',
@@ -123,7 +124,7 @@ module.exports.setEditUserAvatar = (req, res, next) => {
     res.status(500).send(err);
   }
   return User.findById(avatarId).then((user) => {
-    const { avatar } = { avatar: `${String(image.name)}` };
+    const { avatar } = { avatar: `${String(avatarId + image.name)}` };
     if (!user) {
       throw new NotFoundError('Пользователь отсутствует.');
     }
