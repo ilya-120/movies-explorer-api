@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const isEmail = require('validator/lib/isEmail');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
-const root = 'https://api.ilya120.nomoreparties.sbs/static/avatars/';
+const root = 'https://api.promo.nexus.moscow/static/avatars/';
 
 const userSchema = new mongoose.Schema({
   email: {
