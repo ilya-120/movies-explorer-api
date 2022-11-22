@@ -2,7 +2,7 @@ const MONGO_URL_DEV = 'mongodb://127.0.0.1:27017/moviesdb';
 const JWT_SECRET_DEV = 'dev-secret';
 
 const {
-  PORT = 3000,
+  PORT = 3003,
   NODE_ENV,
   JWT_SECRET,
   MONGO_URL,
